@@ -26,10 +26,10 @@ variables:
   k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
 
 stages:
-- stage: BuildJAR
-  displayName: Build JAR stage
-  jobs:  
-  - job: Build
+- stage: Build
+  displayName: Build stage
+  jobs: 
+  - job: BuildJAR
     displayName: Build JAR
     pool:
       vmImage: $(vmImageName)
@@ -41,14 +41,10 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        sonarQubeRunAnalysis: false
-
-
-- stage: Build
-  displayName: Build stage
-  jobs:  
+        sonarQubeRunAnalysis: false  
   - job: Build
     displayName: Build
+    dependsOn: BuildJAR
     pool:
       vmImage: $(vmImageName)
     steps:
