@@ -13,4 +13,7 @@ spec:
         - name: mayurkubesamples 
           image: indialends.azurecr.io/mayurkubesamples
           ports:
-          - containerPort: 80
+          - containerPort: 9000
+          env:
+          - name: backend_url
+            value: http://backend.test1:80
